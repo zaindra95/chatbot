@@ -1,0 +1,13 @@
+# Abaikan folder virtual environment
+env/
+venv/
+
+# Abaikan file database chat (biar privasi aman)
+chat_history_db.json
+
+# Abaikan cache Python
+__pycache__/
+*.pyc
+
+# Abaikan file log
+*.log
