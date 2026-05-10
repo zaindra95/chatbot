@@ -59,10 +59,10 @@ with st.sidebar:
     st.markdown("### 🎭 Pilih Spesialisasi")
     agent_choice = st.selectbox(
         "Gunakan mode apa?",
-        ["Tutor Akademik (Belajar Concept)", "Pro Builder (Langsung Build)"]
+        ["Explainer Mode", "Execution Mode"]
     )
     
-    if agent_choice == "Tutor Akademik (Belajar Concept)":
+    if agent_choice == "Explainer Mode":
         sys_instr = "Kamu adalah Tutor Akademik kelas 12. Jelaskan konsep materi sekolah atau programming secara mendalam tapi santai. Gunakan analogi dan ajak user berpikir."
         theme_color = "🟢"
         bot_avatar = "👨‍🏫"
@@ -93,8 +93,22 @@ with st.sidebar:
             st.session_state.messages = info['chats']
             st.rerun()
 
+    st.markdown("<br><br>", unsafe_allow_html=True) # Kasih jarak biar nggak mepet
+    st.markdown("---")
+    with st.expander("⚙️ Setelan"):
+        # Kita simpan ke session_state supaya nilainya nggak ilang pas ganti mode
+        st.text_input("Panggilan Kamu", value="Bro", key="user_nick_val")
+        st.slider("Kreativitas (Temperature)", 0.0, 1.0, 0.7, key="api_temp_val")
+        st.caption("Pake 0.2 buat debugging kodingan!")
+
 # --- 7. MAIN UI ---
 st.markdown(f"## {theme_color} Mode: {agent_choice}")
+
+if agent_choice == "Explainer Mode":
+    st.info("💡 **Mentor Mode:** Fokus menjelaskan konsep, teori, dan cara kerja materi secara mendalam.")
+else:
+    st.info("🛠️ **Execution Mode:** Fokus pada pembuatan kode, debugging, dan solusi teknis project.")
+
 st.markdown("---")
 
 # Container Chat
